@@ -29,6 +29,18 @@
             max-width: 420px;
             width: 100%;
             border-top: 5px solid #d4af37;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-container .logo {
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 10px;
         }
 
         .login-container h1 {
@@ -42,12 +54,6 @@
             text-align: center;
             color: #888;
             margin-bottom: 30px;
-        }
-
-        .login-container .logo {
-            text-align: center;
-            font-size: 3em;
-            margin-bottom: 15px;
         }
 
         .form-group {
@@ -77,6 +83,11 @@
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
         }
 
+        .form-group input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .btn-login {
             width: 100%;
             padding: 14px;
@@ -91,7 +102,7 @@
             margin-top: 10px;
         }
 
-        .btn-login:hover {
+        .btn-login:hover:not(:disabled) {
             transform: scale(1.02);
             box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
         }
@@ -127,6 +138,13 @@
             margin-bottom: 15px;
             border-left: 4px solid #dc2626;
             display: none;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
 
         .erro-msg.mostrar {
@@ -141,6 +159,7 @@
             margin-bottom: 15px;
             border-left: 4px solid #22c55e;
             display: none;
+            animation: fadeIn 0.5s ease;
         }
 
         .sucesso-msg.mostrar {
@@ -154,6 +173,7 @@
             color: #999;
             text-decoration: none;
             font-size: 0.9em;
+            transition: color 0.3s;
         }
 
         .voltar:hover {
@@ -174,12 +194,32 @@
             cursor: pointer;
             font-size: 1.1em;
             color: #999;
+            transition: color 0.3s;
+            padding: 5px;
         }
 
         .senha-container .toggle-senha:hover {
             color: #333;
         }
 
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(26, 26, 46, 0.2);
+            border-top: 3px solid #1a1a2e;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Modo escuro */
         body.modo-escuro .login-container {
             background: #1e1e2e;
         }
@@ -208,6 +248,22 @@
 
         body.modo-escuro .toggle-form {
             color: #aaa;
+        }
+
+        body.modo-escuro .voltar {
+            color: #777;
+        }
+
+        body.modo-escuro .voltar:hover {
+            color: #d4af37;
+        }
+
+        body.modo-escuro .senha-container .toggle-senha {
+            color: #777;
+        }
+
+        body.modo-escuro .senha-container .toggle-senha:hover {
+            color: #ddd;
         }
 
         @media (max-width: 480px) {
@@ -279,7 +335,8 @@
         import { 
             getAuth, 
             createUserWithEmailAndPassword,
-            signInWithEmailAndPassword
+            signInWithEmailAndPassword,
+            onAuthStateChanged
         } from "firebase/auth";
         import { 
             getDatabase, 
@@ -322,6 +379,7 @@
         const toggleSenha = document.getElementById('toggleSenha');
 
         let isLogin = true;
+        let redirecionando = false;
 
         // ============================================================
         //  FUNÇÕES
@@ -344,6 +402,8 @@
         }
 
         function alternarForm() {
+            if (redirecionando) return;
+            
             isLogin = !isLogin;
             if (isLogin) {
                 formTitle.textContent = 'Entre para comentar';
@@ -363,6 +423,25 @@
             limparMensagens();
         }
 
+        function redirecionarParaIndex() {
+            if (redirecionando) return;
+            redirecionando = true;
+            
+            // Mostra mensagem de redirecionamento
+            mostrarSucesso('✅ Redirecionando para o blog...');
+            
+            // Desabilita o formulário
+            btnSubmit.disabled = true;
+            emailInput.disabled = true;
+            senhaInput.disabled = true;
+            nomeInput.disabled = true;
+            
+            // Redireciona após 1.5 segundos
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
         // ============================================================
         //  EVENTOS
         // ============================================================
@@ -374,14 +453,21 @@
             toggleSenha.textContent = type === 'password' ? '👁️' : '🙈';
         });
 
+        // ============================================================
+        //  SUBMIT DO FORMULÁRIO
+        // ============================================================
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            if (redirecionando) return;
+            
             limparMensagens();
 
             const email = emailInput.value.trim();
             const senha = senhaInput.value;
             const nome = nomeInput.value.trim();
 
+            // Validações
             if (!email || !senha) {
                 mostrarErro('⚠️ Preencha todos os campos.');
                 return;
@@ -397,26 +483,40 @@
                 return;
             }
 
+            // Desabilita o botão durante o processamento
             btnSubmit.disabled = true;
+            const textoOriginal = btnSubmit.textContent;
             btnSubmit.textContent = '⏳ Processando...';
 
             try {
                 if (isLogin) {
-                    // LOGIN
+                    // ======= LOGIN =======
                     const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-                    const user = userCredential.user;
+                    console.log('✅ Login realizado:', userCredential.user.email);
+                    
                     mostrarSucesso('✅ Login realizado com sucesso!');
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 1500);
+                    
+                    // Busca o perfil do usuário
+                    const userSnapshot = await get(ref(database, `usuarios/${userCredential.user.uid}`));
+                    const userData = userSnapshot.val();
+                    
+                    if (userData) {
+                        console.log('👤 Usuário:', userData.nome);
+                    }
+                    
+                    // Redireciona
+                    redirecionarParaIndex();
+                    
                 } else {
-                    // REGISTRO
+                    // ======= REGISTRO =======
                     const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
                     const user = userCredential.user;
+                    console.log('✅ Conta criada:', user.email);
 
-                    // Salva perfil no Realtime Database
+                    // Cria avatar
                     const avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(nome)}&background=d4af37&color=fff&size=128`;
                     
+                    // Salva perfil no Realtime Database
                     await set(ref(database, `usuarios/${user.uid}`), {
                         nome: nome,
                         email: email,
@@ -426,26 +526,30 @@
                         blogsAtivos: ['pedras_preciosas']
                     });
 
+                    console.log('✅ Perfil salvo:', nome);
+                    
                     mostrarSucesso('✅ Conta criada com sucesso!');
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 1500);
+                    
+                    // Redireciona
+                    redirecionarParaIndex();
                 }
+                
             } catch (error) {
-                console.error('Erro:', error);
+                console.error('❌ Erro:', error);
+                
                 let msg = '❌ ';
                 switch (error.code) {
                     case 'auth/user-not-found':
-                        msg += 'Usuário não encontrado.';
+                        msg += 'Usuário não encontrado. Verifique seu e-mail.';
                         break;
                     case 'auth/wrong-password':
-                        msg += 'Senha incorreta.';
+                        msg += 'Senha incorreta. Tente novamente.';
                         break;
                     case 'auth/email-already-in-use':
-                        msg += 'Este e-mail já está em uso.';
+                        msg += 'Este e-mail já está em uso. Faça login ou use outro.';
                         break;
                     case 'auth/invalid-email':
-                        msg += 'E-mail inválido.';
+                        msg += 'E-mail inválido. Verifique o formato.';
                         break;
                     case 'auth/weak-password':
                         msg += 'Senha muito fraca. Use pelo menos 6 caracteres.';
@@ -453,22 +557,34 @@
                     case 'auth/too-many-requests':
                         msg += 'Muitas tentativas. Tente novamente mais tarde.';
                         break;
+                    case 'auth/network-request-failed':
+                        msg += 'Erro de rede. Verifique sua conexão.';
+                        break;
+                    case 'auth/configuration-not-found':
+                        msg += 'Erro de configuração. Ative o provedor Email/Senha no Firebase Console.';
+                        break;
                     default:
                         msg += error.message;
                 }
                 mostrarErro(msg);
-            } finally {
+                
+                // Reabilita o botão
                 btnSubmit.disabled = false;
-                btnSubmit.textContent = isLogin ? 'Entrar' : 'Criar conta';
+                btnSubmit.textContent = textoOriginal;
             }
         });
 
-        // Verifica se já está logado
-        import { onAuthStateChanged } from "firebase/auth";
+        // ============================================================
+        //  VERIFICA SE JÁ ESTÁ LOGADO
+        // ============================================================
         onAuthStateChanged(auth, (user) => {
-            if (user) {
+            if (user && !redirecionando) {
                 // Já está logado, redireciona
-                window.location.href = 'index.html';
+                console.log('👤 Usuário já logado:', user.email);
+                mostrarSucesso('✅ Você já está logado! Redirecionando...');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
             }
         });
 
@@ -479,7 +595,18 @@
             document.body.classList.add('modo-escuro');
         }
 
+        // ============================================================
+        //  PREVINE FECHAR A PÁGINA ENQUANTO REDIRECIONA
+        // ============================================================
+        window.addEventListener('beforeunload', (e) => {
+            if (redirecionando) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+
         console.log('🔥 Página de login carregada!');
+        console.log('📧 Email/Senha habilitado? Verifique no Firebase Console.');
     </script>
 
 </body>
