@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Jóias & Gemas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-width: 420px;
+            width: 100%;
+            border-top: 5px solid #d4af37;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            color: #1a1a2e;
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .login-container .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .login-container .logo {
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #d4af37 0%, #f0d580 100%);
+            color: #1a1a2e;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .toggle-form a {
+            color: #d4af37;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .toggle-form a:hover {
+            text-decoration: underline;
+        }
+
+        .erro-msg {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #dc2626;
+            display: none;
+        }
+
+        .erro-msg.mostrar {
+            display: block;
+        }
+
+        .sucesso-msg {
+            background: #dcfce7;
+            color: #166534;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #22c55e;
+            display: none;
+        }
+
+        .sucesso-msg.mostrar {
+            display: block;
+        }
+
+        .voltar {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #999;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+
+        .voltar:hover {
+            color: #d4af37;
+        }
+
+        .senha-container {
+            position: relative;
+        }
+
+        .senha-container .toggle-senha {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            color: #999;
+        }
+
+        .senha-container .toggle-senha:hover {
+            color: #333;
+        }
+
+        body.modo-escuro .login-container {
+            background: #1e1e2e;
+        }
+
+        body.modo-escuro .login-container h1 {
+            color: #f0d580;
+        }
+
+        body.modo-escuro .login-container .subtitle {
+            color: #aaa;
+        }
+
+        body.modo-escuro .form-group label {
+            color: #ddd;
+        }
+
+        body.modo-escuro .form-group input {
+            background: #2a2a3e;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+
+        body.modo-escuro .form-group input:focus {
+            border-color: #d4af37;
+        }
+
+        body.modo-escuro .toggle-form {
+            color: #aaa;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="logo">💎</div>
+        <h1>Jóias & Gemas</h1>
+        <p class="subtitle" id="formTitle">Entre para comentar</p>
+
+        <div id="erroMsg" class="erro-msg"></div>
+        <div id="sucessoMsg" class="sucesso-msg"></div>
+
+        <form id="loginForm">
+            <!-- Nome (só para registro) -->
+            <div class="form-group" id="nomeGroup" style="display:none;">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" placeholder="Seu nome completo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="seu@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <div class="senha-container">
+                    <input type="password" id="senha" placeholder="••••••••" required minlength="6">
+                    <button type="button" class="toggle-senha" id="toggleSenha">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-login" id="btnSubmit">Entrar</button>
+        </form>
+
+        <div class="toggle-form">
+            <span id="toggleText">Não tem uma conta?</span>
+            <a id="toggleLink">Criar conta</a>
+        </div>
+
+        <a href="index.html" class="voltar">← Voltar ao blog</a>
+    </div>
+
+    <!-- ============================================================
+    FIREBASE - SDK MODULAR
+    ============================================================ -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js",
+                "firebase/database": "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        // ============================================================
+        //  IMPORTAÇÕES
+        // ============================================================
+        import { initializeApp } from "firebase/app";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword
+        } from "firebase/auth";
+        import { 
+            getDatabase, 
+            ref, 
+            set,
+            get
+        } from "firebase/database";
+
+        // ============================================================
+        //  CONFIGURAÇÃO DO FIREBASE
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLcXtrkD8lSMNkZCJ6jQkkekitvsszP_g",
+            authDomain: "gemas-ec5b5.firebaseapp.com",
+            projectId: "gemas-ec5b5",
+            storageBucket: "gemas-ec5b5.firebasestorage.app",
+            messagingSenderId: "794093330547",
+            appId: "1:794093330547:web:1cbc8124ae388da1b54a06",
+            measurementId: "G-PX542Z3S4N"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+        // ============================================================
+        //  ELEMENTOS DO DOM
+        // ============================================================
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const senhaInput = document.getElementById('senha');
+        const nomeInput = document.getElementById('nome');
+        const btnSubmit = document.getElementById('btnSubmit');
+        const formTitle = document.getElementById('formTitle');
+        const toggleLink = document.getElementById('toggleLink');
+        const toggleText = document.getElementById('toggleText');
+        const erroMsg = document.getElementById('erroMsg');
+        const sucessoMsg = document.getElementById('sucessoMsg');
+        const nomeGroup = document.getElementById('nomeGroup');
+        const toggleSenha = document.getElementById('toggleSenha');
+
+        let isLogin = true;
+
+        // ============================================================
+        //  FUNÇÕES
+        // ============================================================
+        function mostrarErro(msg) {
+            erroMsg.textContent = msg;
+            erroMsg.classList.add('mostrar');
+            sucessoMsg.classList.remove('mostrar');
+        }
+
+        function mostrarSucesso(msg) {
+            sucessoMsg.textContent = msg;
+            sucessoMsg.classList.add('mostrar');
+            erroMsg.classList.remove('mostrar');
+        }
+
+        function limparMensagens() {
+            erroMsg.classList.remove('mostrar');
+            sucessoMsg.classList.remove('mostrar');
+        }
+
+        function alternarForm() {
+            isLogin = !isLogin;
+            if (isLogin) {
+                formTitle.textContent = 'Entre para comentar';
+                btnSubmit.textContent = 'Entrar';
+                toggleText.textContent = 'Não tem uma conta?';
+                toggleLink.textContent = 'Criar conta';
+                nomeGroup.style.display = 'none';
+                nomeInput.required = false;
+            } else {
+                formTitle.textContent = 'Crie sua conta';
+                btnSubmit.textContent = 'Criar conta';
+                toggleText.textContent = 'Já tem uma conta?';
+                toggleLink.textContent = 'Fazer login';
+                nomeGroup.style.display = 'block';
+                nomeInput.required = true;
+            }
+            limparMensagens();
+        }
+
+        // ============================================================
+        //  EVENTOS
+        // ============================================================
+        toggleLink.addEventListener('click', alternarForm);
+
+        toggleSenha.addEventListener('click', () => {
+            const type = senhaInput.type === 'password' ? 'text' : 'password';
+            senhaInput.type = type;
+            toggleSenha.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            limparMensagens();
+
+            const email = emailInput.value.trim();
+            const senha = senhaInput.value;
+            const nome = nomeInput.value.trim();
+
+            if (!email || !senha) {
+                mostrarErro('⚠️ Preencha todos os campos.');
+                return;
+            }
+
+            if (!isLogin && !nome) {
+                mostrarErro('⚠️ Digite seu nome.');
+                return;
+            }
+
+            if (senha.length < 6) {
+                mostrarErro('⚠️ A senha deve ter pelo menos 6 caracteres.');
+                return;
+            }
+
+            btnSubmit.disabled = true;
+            btnSubmit.textContent = '⏳ Processando...';
+
+            try {
+                if (isLogin) {
+                    // LOGIN
+                    const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+                    const user = userCredential.user;
+                    mostrarSucesso('✅ Login realizado com sucesso!');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                } else {
+                    // REGISTRO
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+                    const user = userCredential.user;
+
+                    // Salva perfil no Realtime Database
+                    const avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(nome)}&background=d4af37&color=fff&size=128`;
+                    
+                    await set(ref(database, `usuarios/${user.uid}`), {
+                        nome: nome,
+                        email: email,
+                        avatar: avatar,
+                        role: 'leitor',
+                        criadoEm: Date.now(),
+                        blogsAtivos: ['pedras_preciosas']
+                    });
+
+                    mostrarSucesso('✅ Conta criada com sucesso!');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                let msg = '❌ ';
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        msg += 'Usuário não encontrado.';
+                        break;
+                    case 'auth/wrong-password':
+                        msg += 'Senha incorreta.';
+                        break;
+                    case 'auth/email-already-in-use':
+                        msg += 'Este e-mail já está em uso.';
+                        break;
+                    case 'auth/invalid-email':
+                        msg += 'E-mail inválido.';
+                        break;
+                    case 'auth/weak-password':
+                        msg += 'Senha muito fraca. Use pelo menos 6 caracteres.';
+                        break;
+                    case 'auth/too-many-requests':
+                        msg += 'Muitas tentativas. Tente novamente mais tarde.';
+                        break;
+                    default:
+                        msg += error.message;
+                }
+                mostrarErro(msg);
+            } finally {
+                btnSubmit.disabled = false;
+                btnSubmit.textContent = isLogin ? 'Entrar' : 'Criar conta';
+            }
+        });
+
+        // Verifica se já está logado
+        import { onAuthStateChanged } from "firebase/auth";
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Já está logado, redireciona
+                window.location.href = 'index.html';
+            }
+        });
+
+        // ============================================================
+        //  TEMA ESCURO (sincroniza com o blog)
+        // ============================================================
+        if (localStorage.getItem('tema') === 'escuro') {
+            document.body.classList.add('modo-escuro');
+        }
+
+        console.log('🔥 Página de login carregada!');
+    </script>
+
+</body>
+</html>
