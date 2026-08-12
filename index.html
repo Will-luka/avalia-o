@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jóias & Gemas - Blog</title>
+    
     <style>
         * {
             box-sizing: border-box;
@@ -70,6 +71,7 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
             transition: all 0.3s ease;
             border-left: 5px solid #d4af37;
+            cursor: pointer;
         }
 
         .card:hover {
@@ -190,7 +192,7 @@
             }
         }
 
-        /* Estilos para a página de detalhes */
+        /* Página de detalhes */
         .detalhes-container {
             max-width: 900px;
             margin: 0 auto;
@@ -231,6 +233,8 @@
             border-radius: 8px;
             font-weight: bold;
             transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-voltar:hover {
@@ -240,28 +244,23 @@
 
         .gema-img {
             width: 100%;
-            max-width: 400px;
+            max-width: 300px;
             display: block;
             margin: 20px auto;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .post-link {
+        .popular-item {
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border-radius: 8px;
         }
 
-        .post-link:hover {
-            color: #d4af37;
-        }
-
-        .post-link h2 {
-            transition: all 0.2s;
-        }
-
-        .post-link:hover h2 {
-            color: #d4af37;
+        .popular-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(5px);
         }
 
         /* Comentários */
@@ -283,6 +282,12 @@
             border-radius: 8px;
             margin-bottom: 10px;
             border-left: 4px solid #d4af37;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .comentario-item strong {
@@ -297,6 +302,11 @@
 
         .form-comentario {
             margin-top: 20px;
+        }
+
+        .form-comentario h4 {
+            margin-bottom: 10px;
+            color: #1a1a2e;
         }
 
         .form-comentario input,
@@ -338,6 +348,49 @@
             transform: scale(1.05);
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
+
+        .online-status {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #22c55e;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .loading-spinner {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+        }
+
+        .loading-spinner::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0% { content: ''; }
+            25% { content: '.'; }
+            50% { content: '..'; }
+            75% { content: '...'; }
+        }
+
+        .contador-comentarios {
+            background: #d4af37;
+            color: #1a1a2e;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.7em;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -345,7 +398,7 @@
     <!-- ========== BLOG PRINCIPAL ========== -->
     <div id="blog-principal">
         <div class="header">
-            <h1>Jóias & Gemas</h1>
+            <h1>💎 Jóias & Gemas</h1>
             <p>Descobrindo a Beleza das Pedras Preciosas</p>
         </div>
 
@@ -356,10 +409,9 @@
                     <h2>✨ Diamante: A Pedra Mais Valiosa</h2>
                     <h5>Publicado em 12 de Agosto, 2026</h5>
                     <div class="fakeimg" style="height:200px; background: linear-gradient(135deg, #a0aec0 0%, #cbd5e0 100%); display: flex; align-items: center; justify-content: center; font-size: 80px;">💎</div>
-                    <img src="diamante.png" alt="Diamante" style="width:100%; max-width:275px; display:block;">
-                    <p>Você sabia que os diamantes podem ser mais antigos que o próprio Sistema Solar? Alguns diamantes têm cerca de 3,8 bilhões de anos! Além disso, um diamante é tão duro que é o único material natural capaz de arranhar outro diamante. Curiosamente, foram necessários mais de 100 bilhões de anos de pressão e calor para formar cada diamante que existe.</p>
-                    <p>Os diamantes também têm uma propriedade fascinante: eles conduzem o calor melhor do que qualquer outro material natural. Por isso, um teste simples de soprar neles pode identificar falsificações - um diamante real fica nublado por menos tempo que um vidro comum!</p>
-                    <p style="color:#d4af37; font-weight:bold; margin-top:10px;">👆 Clique neste card para ver mais detalhes e comentários</p>
+                    <img src="diamante.png" alt="Diamante" style="width:100%; max-width:275px; display:block;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22275%22 height=%22200%22%3E%3Crect fill=%22%23a0aec0%22 width=%22275%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2224%22%3E💎 Diamante%3C/text%3E%3C/svg%3E'">
+                    <p>Você sabia que os diamantes podem ser mais antigos que o próprio Sistema Solar? Alguns diamantes têm cerca de 3,8 bilhões de anos! Além disso, um diamante é tão duro que é o único material natural capaz de arranhar outro diamante.</p>
+                    <p style="color:#d4af37; font-weight:bold; margin-top:10px;">👆 Clique para ver mais detalhes e comentários</p>
                 </div>
 
                 <!-- POST: RUBI -->
@@ -367,10 +419,9 @@
                     <h2>🔴 Rubi: A Gema Vermelha</h2>
                     <h5>Publicado em 5 de Agosto, 2026</h5>
                     <div class="fakeimg" style="height:200px; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); display: flex; align-items: center; justify-content: center; font-size: 80px;">❤️</div>
-                    <img src="rubi.png" alt="Rubi" style="width:100%; max-width:275px; display:block;">
-                    <p>O rubi é na verdade uma variedade vermelha do corundum, o mesmo mineral que forma a safira azul! A cor vermelha intensa vem da presença de cromo na sua estrutura. Rubis de qualidade superior são frequentemente mais caros que diamantes de tamanho equivalente. Um dos rubis mais famosos é o "Esperança de Burmese", que é um das gemas mais valiosas do mundo.</p>
-                    <p>Interessantemente, os rubis também possuem fluorescência - quando expostos à luz ultravioleta, emitem um brilho vermelho fluorescente. Além disso, alguns rubis apresentam o efeito "olho de gato", onde uma faixa de luz brilhante atravessa a pedra quando girada sob uma fonte de luz!</p>
-                    <p style="color:#d4af37; font-weight:bold; margin-top:10px;">👆 Clique neste card para ver mais detalhes e comentários</p>
+                    <img src="rubi.png" alt="Rubi" style="width:100%; max-width:275px; display:block;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22275%22 height=%22200%22%3E%3Crect fill=%22%23dc2626%22 width=%22275%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2224%22%3E🔴 Rubi%3C/text%3E%3C/svg%3E'">
+                    <p>O rubi é na verdade uma variedade vermelha do corundum, o mesmo mineral que forma a safira azul! A cor vermelha intensa vem da presença de cromo na sua estrutura. Rubis de qualidade superior são frequentemente mais caros que diamantes.</p>
+                    <p style="color:#d4af37; font-weight:bold; margin-top:10px;">👆 Clique para ver mais detalhes e comentários</p>
                 </div>
             </div>
 
@@ -379,27 +430,30 @@
                     <h2>Sobre Este Blog</h2>
                     <div class="fakeimg" style="height:100px; background: linear-gradient(135deg, #9333ea 0%, #6b21a8 100%); display: flex; align-items: center; justify-content: center; font-size: 60px;">👑</div>
                     <p>Bem-vindo ao Jóias & Gemas! Aqui compartilhamos conhecimento sobre as pedras preciosas mais fascinantes do mundo. Explore a geologia, história e beleza de cada gema.</p>
+                    <p style="margin-top:10px; font-size:0.9em; color:#666;">
+                        <span class="online-status"></span> Comentários em tempo real
+                    </p>
                 </div>
 
                 <div class="card">
                     <h3>📚 Artigos Populares</h3>
 
-                    <div class="popular-item post-link" data-gema="safira" style="cursor:pointer;">
-                        <img src="safira.png" alt="Safira Azul" style="width:100%; max-width:180px; display:block;">
+                    <div class="popular-item post-link" data-gema="safira">
+                        <img src="safira.png" alt="Safira Azul" style="width:100%; max-width:180px; display:block;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22180%22 height=%22150%22%3E%3Crect fill=%22%231e3a8a%22 width=%22180%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2220%22%3E💙 Safira%3C/text%3E%3C/svg%3E'">
                         <p><strong>Safira Azul</strong> <span style="color:#d4af37; font-size:0.8em;">(clique)</span></p>
                     </div>
 
                     <br>
 
-                    <div class="popular-item post-link" data-gema="esmeralda" style="cursor:pointer;">
-                        <img src="esmeralda.png" alt="Esmeralda Colombiana" style="width:100%; max-width:180px; display:block;">
+                    <div class="popular-item post-link" data-gema="esmeralda">
+                        <img src="esmeralda.png" alt="Esmeralda Colombiana" style="width:100%; max-width:180px; display:block;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22180%22 height=%22150%22%3E%3Crect fill=%22%2315803d%22 width=%22180%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2220%22%3E💚 Esmeralda%3C/text%3E%3C/svg%3E'">
                         <p><strong>Esmeralda Colombiana</strong> <span style="color:#d4af37; font-size:0.8em;">(clique)</span></p>
                     </div>
 
                     <br>
 
-                    <div class="popular-item post-link" data-gema="topazio" style="cursor:pointer;">
-                        <img src="topazio.png" alt="Topázio Imperial" style="width:100%; max-width:180px; display:block;">
+                    <div class="popular-item post-link" data-gema="topazio">
+                        <img src="topazio.png" alt="Topázio Imperial" style="width:100%; max-width:180px; display:block;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22180%22 height=%22150%22%3E%3Crect fill=%22%23eab308%22 width=%22180%22 height=%22150%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2220%22%3E💛 Topázio%3C/text%3E%3C/svg%3E'">
                         <p><strong>Topázio Imperial</strong> <span style="color:#d4af37; font-size:0.8em;">(clique)</span></p>
                     </div>
                 </div>
@@ -422,9 +476,44 @@
     <!-- ========== CONTAINER PARA PÁGINAS DE DETALHES ========== -->
     <div id="pagina-detalhes" style="display:none;"></div>
 
-    <script>
+    <!-- ============================================================ -->
+    <!--  FIREBASE MODULAR (v12.17.1)                                  -->
+    <!-- ============================================================ -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js",
+                "firebase/database": "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js"
+            }
+        }
+    </script>
+
+    <script type="module">
         // ============================================================
-        //  DADOS COMPLETOS DE CADA GEMA (incluindo as que não estão na página principal)
+        //  IMPORTAÇÕES DO FIREBASE
+        // ============================================================
+        import { initializeApp } from "firebase/app";
+        import { getDatabase, ref, onValue, push, set } from "firebase/database";
+
+        // ============================================================
+        //  CONFIGURAÇÃO DO FIREBASE
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDLcXtrkD8lSMNkZCJ6jQkkekitvsszP_g",
+            authDomain: "gemas-ec5b5.firebaseapp.com",
+            projectId: "gemas-ec5b5",
+            storageBucket: "gemas-ec5b5.firebasestorage.app",
+            messagingSenderId: "794093330547",
+            appId: "1:794093330547:web:1cbc8124ae388da1b54a06",
+            measurementId: "G-PX542Z3S4N"
+        };
+
+        // Inicializa Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // ============================================================
+        //  DADOS DAS GEMAS
         // ============================================================
         const dadosGemases = {
             diamante: {
@@ -436,8 +525,7 @@
                     <p>Curiosidade: o maior diamante já encontrado foi o Cullinan, com 3.106 quilates, descoberto na África do Sul em 1905. Ele foi lapidado em 105 pedras diferentes, algumas das quais fazem parte das joias da Coroa Britânica.</p>
                     <p>Os diamantes também são conhecidos por sua "fogo" ou dispersão, que é a capacidade de separar a luz branca em cores do arco-íris, criando o brilho característico que tanto encanta.</p>
                 `,
-                imagem: 'diamante.png',
-                cor: '#a0aec0'
+                imagem: 'diamante.png'
             },
             rubi: {
                 titulo: '🔴 Rubi: A Gema Vermelha',
@@ -448,8 +536,7 @@
                     <p>Uma característica fascinante dos rubis é a fluorescência vermelha sob luz ultravioleta, que ajuda a distinguir rubis naturais de sintéticos ou imitações.</p>
                     <p>Rubis com inclusões de agulhas de rutilo podem exibir o fenômeno de asterismo, formando uma estrela de seis pontas quando lapidados em cabochão.</p>
                 `,
-                imagem: 'rubi.png',
-                cor: '#dc2626'
+                imagem: 'rubi.png'
             },
             safira: {
                 titulo: '💙 Safira Azul: A Gema da Nobreza',
@@ -460,8 +547,7 @@
                     <p>Além do azul, safiras podem ser encontradas em amarelo, verde, rosa, laranja e até incolor. A variedade "Padparadscha" (laranja-rosada) é extremamente rara e valiosa.</p>
                     <p>Historicamente, a safira era usada como proteção contra inveja e venenos, e era a pedra preferida da realeza europeia.</p>
                 `,
-                imagem: 'safira.png',
-                cor: '#1e3a8a'
+                imagem: 'safira.png'
             },
             esmeralda: {
                 titulo: '💚 Esmeralda Colombiana: O Verde da Natureza',
@@ -472,8 +558,7 @@
                     <p>Diferente de outras gemas, as esmeraldas quase sempre apresentam inclusões (chamadas de "jardim"), que são aceitas e até valorizadas como prova de autenticidade.</p>
                     <p>A esmeralda é a pedra do mês de maio e simboliza renascimento, amor e sabedoria.</p>
                 `,
-                imagem: 'esmeralda.png',
-                cor: '#15803d'
+                imagem: 'esmeralda.png'
             },
             topazio: {
                 titulo: '💛 Topázio Imperial: A Gema Dourada',
@@ -484,25 +569,107 @@
                     <p>O topázio é uma pedra dura (8 na escala Mohs), sendo adequada para joias do dia a dia. Além do imperial, existem topázios azuis (geralmente tratados termicamente) e incolores.</p>
                     <p>Na antiguidade, acreditava-se que o topázio tinha propriedades medicinais, incluindo a cura de insônia e problemas de visão.</p>
                 `,
-                imagem: 'topazio.png',
-                cor: '#eab308'
+                imagem: 'topazio.png'
             }
         };
 
         // ============================================================
-        //  SISTEMA DE COMENTÁRIOS (armazenamento em localStorage)
+        //  SISTEMA DE COMENTÁRIOS COM FIREBASE (TEMPO REAL)
         // ============================================================
-        function getComentarios(gemaId) {
-            const todos = JSON.parse(localStorage.getItem('comentarios_gemas')) || {};
-            return todos[gemaId] || [];
+        let listenerRef = null;
+
+        function carregarComentarios(gemaId) {
+            const comentariosRef = ref(database, `comentarios/${gemaId}`);
+            
+            // Remove listener anterior se existir
+            if (listenerRef) {
+                listenerRef();
+                listenerRef = null;
+            }
+            
+            // Mostra loading
+            const container = document.getElementById(`lista-comentarios-${gemaId}`);
+            if (container) {
+                container.innerHTML = '<div class="loading-spinner">Carregando comentários</div>';
+            }
+            
+            // Escuta mudanças em tempo real
+            const unsubscribe = onValue(comentariosRef, (snapshot) => {
+                const container = document.getElementById(`lista-comentarios-${gemaId}`);
+                if (!container) return;
+                
+                const comentarios = snapshot.val();
+                container.innerHTML = '';
+                
+                if (!comentarios) {
+                    container.innerHTML = `<p style="color:#999; text-align:center; padding:20px;">💭 Seja o primeiro a comentar sobre esta gema!</p>`;
+                    return;
+                }
+                
+                // Converte objeto para array e ordena por data
+                const comentariosArray = Object.keys(comentarios).map(key => ({
+                    id: key,
+                    ...comentarios[key]
+                })).sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+                
+                if (comentariosArray.length === 0) {
+                    container.innerHTML = `<p style="color:#999; text-align:center; padding:20px;">💭 Seja o primeiro a comentar sobre esta gema!</p>`;
+                    return;
+                }
+                
+                comentariosArray.forEach(c => {
+                    const div = document.createElement('div');
+                    div.className = 'comentario-item';
+                    const dataFormatada = c.timestamp ? new Date(c.timestamp).toLocaleString('pt-BR') : 'Data desconhecida';
+                    div.innerHTML = `
+                        <strong>${c.nome || 'Anônimo'}</strong> 
+                        <span class="data">${dataFormatada}</span>
+                        <p>${c.texto || ''}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            }, (error) => {
+                console.error('Erro ao carregar comentários:', error);
+                const container = document.getElementById(`lista-comentarios-${gemaId}`);
+                if (container) {
+                    container.innerHTML = `<p style="color:red;">❌ Erro ao carregar comentários. Tente novamente.</p>`;
+                }
+            });
+            
+            listenerRef = unsubscribe;
         }
 
-        function salvarComentario(gemaId, nome, texto) {
-            const todos = JSON.parse(localStorage.getItem('comentarios_gemas')) || {};
-            if (!todos[gemaId]) todos[gemaId] = [];
-            const data = new Date().toLocaleString('pt-BR');
-            todos[gemaId].push({ nome, texto, data });
-            localStorage.setItem('comentarios_gemas', JSON.stringify(todos));
+        async function salvarComentario(gemaId, nome, texto) {
+            try {
+                const comentariosRef = ref(database, `comentarios/${gemaId}`);
+                const novoComentarioRef = push(comentariosRef);
+                
+                await set(novoComentarioRef, {
+                    nome: nome.trim(),
+                    texto: texto.trim(),
+                    timestamp: Date.now()
+                });
+                
+                // Limpa os campos
+                const nomeInput = document.getElementById(`nome-${gemaId}`);
+                const textoInput = document.getElementById(`texto-${gemaId}`);
+                if (nomeInput) nomeInput.value = '';
+                if (textoInput) textoInput.value = '';
+                
+                // Feedback visual
+                const btn = document.querySelector(`.form-comentario button`);
+                if (btn) {
+                    const originalText = btn.textContent;
+                    btn.textContent = '✅ Comentário enviado!';
+                    btn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.background = '';
+                    }, 2000);
+                }
+            } catch (error) {
+                alert('❌ Erro ao salvar comentário: ' + error.message);
+            }
         }
 
         // ============================================================
@@ -510,7 +677,10 @@
         // ============================================================
         function mostrarDetalhes(gemaId) {
             const gema = dadosGemases[gemaId];
-            if (!gema) return;
+            if (!gema) {
+                alert('Gema não encontrada!');
+                return;
+            }
 
             const blog = document.getElementById('blog-principal');
             const container = document.getElementById('pagina-detalhes');
@@ -518,72 +688,68 @@
             blog.style.display = 'none';
             container.style.display = 'block';
 
-            // Carrega comentários existentes
-            const comentarios = getComentarios(gemaId);
+            // Remove listener antigo
+            if (listenerRef) {
+                listenerRef();
+                listenerRef = null;
+            }
 
             let html = `
                 <div class="detalhes-container">
                     <h1>${gema.titulo}</h1>
                     <div class="meta">${gema.data}</div>
-                    <img src="${gema.imagem}" alt="${gema.titulo}" class="gema-img" style="max-width:300px;">
+                    <img src="${gema.imagem}" alt="${gema.titulo}" class="gema-img" 
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Crect fill=%22%23d4af37%22 width=%22300%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2240%22%3E💎%3C/text%3E%3C/svg%3E'">
                     <div class="conteudo">
                         ${gema.conteudo}
                     </div>
 
-                    <a href="#" class="btn-voltar" onclick="voltarBlog(event)">← Voltar ao Blog</a>
+                    <button class="btn-voltar" onclick="window.voltarBlog()">← Voltar ao Blog</button>
 
                     <!-- SEÇÃO DE COMENTÁRIOS -->
                     <div class="comentarios">
-                        <h3>💬 Comentários</h3>
+                        <h3>💬 Comentários <span style="font-size:0.6em; color:#999;">(em tempo real)</span></h3>
                         <div id="lista-comentarios-${gemaId}">
-            `;
-
-            if (comentarios.length === 0) {
-                html += `<p style="color:#999;">Seja o primeiro a comentar sobre esta gema!</p>`;
-            } else {
-                comentarios.forEach(c => {
-                    html += `
-                        <div class="comentario-item">
-                            <strong>${c.nome}</strong> <span class="data">${c.data}</span>
-                            <p>${c.texto}</p>
-                        </div>
-                    `;
-                });
-            }
-
-            html += `
+                            <div class="loading-spinner">Carregando comentários</div>
                         </div>
 
                         <div class="form-comentario">
-                            <h4>Deixe seu comentário</h4>
+                            <h4>✍️ Deixe seu comentário</h4>
                             <input type="text" id="nome-${gemaId}" placeholder="Seu nome..." required>
                             <textarea id="texto-${gemaId}" placeholder="Escreva seu comentário..." required></textarea>
-                            <button onclick="adicionarComentario('${gemaId}')">Enviar Comentário</button>
+                            <button onclick="window.adicionarComentario('${gemaId}')">📨 Enviar Comentário</button>
                         </div>
                     </div>
                 </div>
             `;
 
             container.innerHTML = html;
+            
+            // Carrega comentários em tempo real
+            carregarComentarios(gemaId);
+            
             window.scrollTo(0, 0);
         }
 
         // ============================================================
-        //  FUNÇÕES GLOBAIS (para chamar do HTML)
+        //  EXPORTA FUNÇÕES PARA O ESCOPO GLOBAL
         // ============================================================
-        window.voltarBlog = function(event) {
-            if (event) event.preventDefault();
+        window.mostrarDetalhes = mostrarDetalhes;
+        window.voltarBlog = function() {
+            if (listenerRef) {
+                listenerRef();
+                listenerRef = null;
+            }
             document.getElementById('blog-principal').style.display = 'block';
             document.getElementById('pagina-detalhes').style.display = 'none';
             window.scrollTo(0, 0);
         };
-
         window.adicionarComentario = function(gemaId) {
             const nomeInput = document.getElementById(`nome-${gemaId}`);
             const textoInput = document.getElementById(`texto-${gemaId}`);
 
-            const nome = nomeInput.value.trim();
-            const texto = textoInput.value.trim();
+            const nome = nomeInput?.value?.trim() || '';
+            const texto = textoInput?.value?.trim() || '';
 
             if (!nome || !texto) {
                 alert('Por favor, preencha seu nome e o comentário.');
@@ -591,27 +757,14 @@
             }
 
             salvarComentario(gemaId, nome, texto);
-            // Recarrega a página de detalhes para mostrar o novo comentário
-            mostrarDetalhes(gemaId);
         };
 
         // ============================================================
-        //  EVENTOS DE CLIQUE PARA ABRIR DETALHES
+        //  CONFIGURA EVENTOS DE CLIQUE
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            // Clique nos cards principais (diamante e rubi)
+            // Clique nos cards principais
             document.querySelectorAll('.post-link[data-gema]').forEach(el => {
-                el.addEventListener('click', function(e) {
-                    // Evita que o clique em imagem ou texto dentro do card dispare duas vezes
-                    const gemaId = this.dataset.gema;
-                    if (gemaId && dadosGemases[gemaId]) {
-                        mostrarDetalhes(gemaId);
-                    }
-                });
-            });
-
-            // Clique nos itens populares (safira, esmeralda, topázio)
-            document.querySelectorAll('.popular-item.post-link[data-gema]').forEach(el => {
                 el.addEventListener('click', function(e) {
                     const gemaId = this.dataset.gema;
                     if (gemaId && dadosGemases[gemaId]) {
@@ -620,6 +773,9 @@
                 });
             });
         });
+
+        console.log('🔥 Blog conectado ao Firebase!');
+        console.log('📝 Comentários em tempo real ativados!');
     </script>
 
 </body>
