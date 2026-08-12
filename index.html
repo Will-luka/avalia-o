@@ -383,13 +383,42 @@
             75% { content: '...'; }
         }
 
-        .contador-comentarios {
-            background: #d4af37;
-            color: #1a1a2e;
-            padding: 2px 10px;
+        .erro-comentarios {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #dc2626;
+        }
+
+        .erro-comentarios strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .erro-comentarios small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.85em;
+        }
+
+        .status-conexao {
+            display: inline-block;
+            padding: 4px 12px;
             border-radius: 20px;
-            font-size: 0.7em;
-            margin-left: 10px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .status-conexao.conectado {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-conexao.desconectado {
+            background: #fee2e2;
+            color: #991b1b;
         }
     </style>
 </head>
@@ -477,27 +506,14 @@
     <div id="pagina-detalhes" style="display:none;"></div>
 
     <!-- ============================================================ -->
-    <!--  FIREBASE MODULAR (v12.17.1)                                  -->
+    <!--  FIREBASE - CÓDIGO FORNECIDO PELO SITE                       -->
     <!-- ============================================================ -->
-    <script type="importmap">
-        {
-            "imports": {
-                "firebase/app": "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js",
-                "firebase/database": "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js"
-            }
-        }
-    </script>
-
     <script type="module">
-        // ============================================================
-        //  IMPORTAÇÕES DO FIREBASE
-        // ============================================================
-        import { initializeApp } from "firebase/app";
-        import { getDatabase, ref, onValue, push, set } from "firebase/database";
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+        import { getDatabase, ref, onValue, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 
-        // ============================================================
-        //  CONFIGURAÇÃO DO FIREBASE
-        // ============================================================
+        // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDLcXtrkD8lSMNkZCJ6jQkkekitvsszP_g",
             authDomain: "gemas-ec5b5.firebaseapp.com",
@@ -508,9 +524,11 @@
             measurementId: "G-PX542Z3S4N"
         };
 
-        // Inicializa Firebase
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
+
+        console.log('🔥 Firebase inicializado com sucesso!');
 
         // ============================================================
         //  DADOS DAS GEMAS
@@ -523,7 +541,6 @@
                     <p>Os diamantes são formações cristalinas de carbono puro que se originam nas profundezas da Terra, a mais de 150 km abaixo da superfície. Eles são levados à superfície por erupções vulcânicas antigas, através de tubos de kimberlito.</p>
                     <p>Além de serem a substância natural mais dura conhecida (10 na escala Mohs), os diamantes possuem uma condutividade térmica excepcional, sendo usados em aplicações industriais de alta precisão.</p>
                     <p>Curiosidade: o maior diamante já encontrado foi o Cullinan, com 3.106 quilates, descoberto na África do Sul em 1905. Ele foi lapidado em 105 pedras diferentes, algumas das quais fazem parte das joias da Coroa Britânica.</p>
-                    <p>Os diamantes também são conhecidos por sua "fogo" ou dispersão, que é a capacidade de separar a luz branca em cores do arco-íris, criando o brilho característico que tanto encanta.</p>
                 `,
                 imagem: 'diamante.png'
             },
@@ -534,7 +551,6 @@
                     <p>O rubi é uma variedade do mineral corundum (óxido de alumínio) com coloração vermelha devido à presença de cromo. É uma das quatro pedras preciosas tradicionais, ao lado do diamante, da esmeralda e da safira.</p>
                     <p>Os rubis de melhor qualidade são extraídos principalmente em Mianmar (antiga Birmânia), Moçambique, Tailândia e Sri Lanka. O "Rubi Esperança de Burmese" é um dos exemplares mais famosos, pesando 32,08 quilates.</p>
                     <p>Uma característica fascinante dos rubis é a fluorescência vermelha sob luz ultravioleta, que ajuda a distinguir rubis naturais de sintéticos ou imitações.</p>
-                    <p>Rubis com inclusões de agulhas de rutilo podem exibir o fenômeno de asterismo, formando uma estrela de seis pontas quando lapidados em cabochão.</p>
                 `,
                 imagem: 'rubi.png'
             },
@@ -543,8 +559,7 @@
                 data: 'Publicado em 20 de Julho, 2026',
                 conteudo: `
                     <p>A safira é outra variedade do corundum, mas em todas as cores exceto o vermelho (que seria rubi). A safira azul é a mais conhecida, com sua cor proveniente de traços de ferro e titânio.</p>
-                    <p>As safiras mais valorizadas vêm da Caxemira (azul aveludado), Mianmar e Sri Lanka. A safira "Estrela da Índia", com 563 quilates, é uma das maiores safiras estrela do mundo, exibindo um asterismo perfeito.</p>
-                    <p>Além do azul, safiras podem ser encontradas em amarelo, verde, rosa, laranja e até incolor. A variedade "Padparadscha" (laranja-rosada) é extremamente rara e valiosa.</p>
+                    <p>As safiras mais valorizadas vêm da Caxemira (azul aveludado), Mianmar e Sri Lanka. A safira "Estrela da Índia", com 563 quilates, é uma das maiores safiras estrela do mundo.</p>
                     <p>Historicamente, a safira era usada como proteção contra inveja e venenos, e era a pedra preferida da realeza europeia.</p>
                 `,
                 imagem: 'safira.png'
@@ -554,8 +569,7 @@
                 data: 'Publicado em 15 de Julho, 2026',
                 conteudo: `
                     <p>A esmeralda é uma variedade verde do mineral berilo, com sua cor proveniente de traços de cromo, vanádio ou ferro. As esmeraldas colombianas são consideradas as mais finas do mundo.</p>
-                    <p>As minas de Muzo, Chivor e Coscuez na Colômbia produzem esmeraldas de cor verde intensa e pureza excepcional. A esmeralda "Gachalá" de 858 quilates é um dos exemplares mais impressionantes.</p>
-                    <p>Diferente de outras gemas, as esmeraldas quase sempre apresentam inclusões (chamadas de "jardim"), que são aceitas e até valorizadas como prova de autenticidade.</p>
+                    <p>As minas de Muzo, Chivor e Coscuez na Colômbia produzem esmeraldas de cor verde intensa e pureza excepcional.</p>
                     <p>A esmeralda é a pedra do mês de maio e simboliza renascimento, amor e sabedoria.</p>
                 `,
                 imagem: 'esmeralda.png'
@@ -565,8 +579,7 @@
                 data: 'Publicado em 28 de Junho, 2026',
                 conteudo: `
                     <p>O topázio é um mineral de silicato de alumínio e flúor, disponível em diversas cores. O topázio imperial, de cor dourada a laranja-rosada, é a variedade mais valiosa e rara.</p>
-                    <p>As principais fontes de topázio imperial são as minas de Ouro Preto, em Minas Gerais, Brasil. A cor intensa é devida à presença de impurezas de cromo e ferro.</p>
-                    <p>O topázio é uma pedra dura (8 na escala Mohs), sendo adequada para joias do dia a dia. Além do imperial, existem topázios azuis (geralmente tratados termicamente) e incolores.</p>
+                    <p>As principais fontes de topázio imperial são as minas de Ouro Preto, em Minas Gerais, Brasil.</p>
                     <p>Na antiguidade, acreditava-se que o topázio tinha propriedades medicinais, incluindo a cura de insônia e problemas de visão.</p>
                 `,
                 imagem: 'topazio.png'
@@ -590,15 +603,19 @@
             // Mostra loading
             const container = document.getElementById(`lista-comentarios-${gemaId}`);
             if (container) {
-                container.innerHTML = '<div class="loading-spinner">Carregando comentários</div>';
+                container.innerHTML = '<div class="loading-spinner">⏳ Carregando comentários</div>';
             }
             
             // Escuta mudanças em tempo real
             const unsubscribe = onValue(comentariosRef, (snapshot) => {
                 const container = document.getElementById(`lista-comentarios-${gemaId}`);
-                if (!container) return;
+                if (!container) {
+                    console.warn('Container não encontrado para:', gemaId);
+                    return;
+                }
                 
                 const comentarios = snapshot.val();
+                console.log(`📝 Comentários carregados para ${gemaId}:`, comentarios);
                 container.innerHTML = '';
                 
                 if (!comentarios) {
@@ -628,11 +645,20 @@
                     `;
                     container.appendChild(div);
                 });
+                
+                console.log(`✅ ${comentariosArray.length} comentários exibidos para ${gemaId}`);
             }, (error) => {
-                console.error('Erro ao carregar comentários:', error);
+                console.error('❌ Erro ao carregar comentários:', error);
                 const container = document.getElementById(`lista-comentarios-${gemaId}`);
                 if (container) {
-                    container.innerHTML = `<p style="color:red;">❌ Erro ao carregar comentários. Tente novamente.</p>`;
+                    container.innerHTML = `
+                        <div class="erro-comentarios">
+                            <strong>❌ Erro ao carregar comentários</strong>
+                            <p>${error.message}</p>
+                            <small>💡 Verifique as <strong>Regras de Segurança</strong> do Realtime Database no Firebase Console.</small>
+                            <small>🔧 Configure as regras como: { "rules": { ".read": true, ".write": true } } para testes.</small>
+                        </div>
+                    `;
                 }
             });
             
@@ -641,6 +667,8 @@
 
         async function salvarComentario(gemaId, nome, texto) {
             try {
+                console.log(`📤 Salvando comentário para ${gemaId}:`, { nome, texto });
+                
                 const comentariosRef = ref(database, `comentarios/${gemaId}`);
                 const novoComentarioRef = push(comentariosRef);
                 
@@ -649,6 +677,8 @@
                     texto: texto.trim(),
                     timestamp: Date.now()
                 });
+                
+                console.log('✅ Comentário salvo com sucesso!');
                 
                 // Limpa os campos
                 const nomeInput = document.getElementById(`nome-${gemaId}`);
@@ -660,7 +690,7 @@
                 const btn = document.querySelector(`.form-comentario button`);
                 if (btn) {
                     const originalText = btn.textContent;
-                    btn.textContent = '✅ Comentário enviado!';
+                    btn.textContent = '✅ Enviado!';
                     btn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
                     setTimeout(() => {
                         btn.textContent = originalText;
@@ -668,7 +698,8 @@
                     }, 2000);
                 }
             } catch (error) {
-                alert('❌ Erro ao salvar comentário: ' + error.message);
+                console.error('❌ Erro ao salvar comentário:', error);
+                alert(`❌ Erro ao salvar comentário: ${error.message}\n\n💡 Verifique as regras de segurança do Firebase.`);
             }
         }
 
@@ -710,7 +741,7 @@
                     <div class="comentarios">
                         <h3>💬 Comentários <span style="font-size:0.6em; color:#999;">(em tempo real)</span></h3>
                         <div id="lista-comentarios-${gemaId}">
-                            <div class="loading-spinner">Carregando comentários</div>
+                            <div class="loading-spinner">⏳ Carregando comentários</div>
                         </div>
 
                         <div class="form-comentario">
@@ -774,8 +805,9 @@
             });
         });
 
-        console.log('🔥 Blog conectado ao Firebase!');
+        console.log('✅ Blog conectado ao Firebase!');
         console.log('📝 Comentários em tempo real ativados!');
+        console.log('💡 Se os comentários não carregarem, configure as regras do Realtime Database.');
     </script>
 
 </body>
