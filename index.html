@@ -6,6 +6,9 @@
     <title>Jóias & Gemas - Blog</title>
     
     <style>
+        /* ============================================================
+           ESTILOS GLOBAIS
+           ============================================================ */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -20,20 +23,21 @@
             min-height: 100vh;
         }
 
+        /* HEADER */
         .header {
-            padding: 50px 30px;
-            font-size: 40px;
+            padding: 40px 30px 30px;
             text-align: center;
             background: linear-gradient(135deg, #d4af37 0%, #f0d580 100%);
             box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
             border-radius: 15px;
             margin-bottom: 30px;
+            position: relative;
         }
 
         .header h1 {
             color: #1a1a2e;
             font-size: 3em;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
@@ -43,6 +47,72 @@
             font-weight: 300;
         }
 
+        /* ÁREA DO USUÁRIO NO HEADER */
+        .user-area {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-area .user-info {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.3);
+            padding: 5px 15px 5px 10px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        .user-area .user-info img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid #1a1a2e;
+        }
+
+        .user-area .user-info .user-name {
+            color: #1a1a2e;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .user-area .user-info .btn-logout {
+            background: none;
+            border: none;
+            color: #1a1a2e;
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 0 5px;
+            transition: transform 0.2s;
+        }
+
+        .user-area .user-info .btn-logout:hover {
+            transform: scale(1.2);
+        }
+
+        .btn-login {
+            background: #1a1a2e;
+            color: #d4af37;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-login:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        /* LAYOUT */
         .leftcolumn {
             float: left;
             width: 75%;
@@ -54,15 +124,13 @@
             width: 25%;
         }
 
-        .fakeimg {
-            background-color: #aaa;
-            width: 100%;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
         }
 
+        /* CARDS */
         .card {
             background-color: white;
             padding: 25px;
@@ -110,6 +178,35 @@
             border-top: 3px solid #d4af37;
         }
 
+        .fakeimg {
+            background-color: #aaa;
+            width: 100%;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .popular-item {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .popular-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(5px);
+        }
+
+        .popular-item img {
+            width: 100%;
+            max-width: 180px;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* SUBSCRIBE */
         .subscribe-input {
             width: 100%;
             padding: 12px;
@@ -145,12 +242,7 @@
             box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
         }
 
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
+        /* FOOTER */
         .footer {
             padding: 40px 20px;
             text-align: center;
@@ -172,6 +264,7 @@
             color: #a0a0a0;
         }
 
+        /* RESPONSIVO */
         @media screen and (max-width: 800px) {
             .leftcolumn,
             .rightcolumn {
@@ -190,9 +283,17 @@
             .card {
                 margin-top: 15px;
             }
+
+            .user-area {
+                position: static;
+                justify-content: center;
+                margin-top: 15px;
+            }
         }
 
-        /* Página de detalhes */
+        /* ============================================================
+           PÁGINA DE DETALHES
+           ============================================================ */
         .detalhes-container {
             max-width: 900px;
             margin: 0 auto;
@@ -251,19 +352,9 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .popular-item {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        .popular-item:hover {
-            background: rgba(212, 175, 55, 0.1);
-            transform: translateX(5px);
-        }
-
-        /* Comentários */
+        /* ============================================================
+           COMENTÁRIOS
+           ============================================================ */
         .comentarios {
             margin-top: 30px;
             border-top: 2px solid #eee;
@@ -283,21 +374,71 @@
             margin-bottom: 10px;
             border-left: 4px solid #d4af37;
             animation: fadeIn 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .comentario-item .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 2px solid #d4af37;
+        }
+
+        .comentario-item .conteudo-comentario {
+            flex: 1;
+        }
+
+        .comentario-item .conteudo-comentario strong {
+            color: #1a1a2e;
+        }
+
+        .comentario-item .conteudo-comentario .data {
+            color: #999;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+
+        .comentario-item .conteudo-comentario p {
+            margin-top: 4px;
+            color: #333;
+        }
+
+        .comentario-item .acoes-comentario {
+            margin-top: 5px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .comentario-item .acoes-comentario button {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 0.85em;
+            padding: 2px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .comentario-item .acoes-comentario button:hover {
+            background: #eee;
+            color: #333;
+        }
+
+        .comentario-item .acoes-comentario .btn-excluir:hover {
+            color: #dc2626;
+        }
+
+        .comentario-item .acoes-comentario .btn-editar:hover {
+            color: #2563eb;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        .comentario-item strong {
-            color: #1a1a2e;
-        }
-
-        .comentario-item .data {
-            color: #999;
-            font-size: 0.85em;
-            margin-left: 10px;
         }
 
         .form-comentario {
@@ -349,6 +490,21 @@
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
 
+        .form-comentario .login-aviso {
+            background: #fef3c7;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #92400e;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .form-comentario .login-aviso a {
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        /* STATUS */
         .online-status {
             display: inline-block;
             width: 10px;
@@ -403,32 +559,155 @@
             font-size: 0.85em;
         }
 
-        .status-conexao {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
+        /* NOTIFICAÇÃO */
+        .notificacao {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 25px;
+            border-radius: 12px;
+            color: white;
             font-weight: bold;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 1000;
         }
 
-        .status-conexao.conectado {
-            background: #dcfce7;
-            color: #166534;
+        .notificacao.mostrar {
+            transform: translateY(0);
+            opacity: 1;
         }
 
-        .status-conexao.desconectado {
-            background: #fee2e2;
-            color: #991b1b;
+        .notificacao.sucesso {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+        }
+
+        .notificacao.erro {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+
+        .notificacao.info {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        /* MODO ESCURO (toggle) */
+        .btn-tema {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: transform 0.3s;
+            padding: 0 5px;
+        }
+
+        .btn-tema:hover {
+            transform: rotate(30deg);
+        }
+
+        body.modo-escuro {
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+        }
+
+        body.modo-escuro .card {
+            background: #1e1e2e;
+            color: #e0e0e0;
+        }
+
+        body.modo-escuro .card h2,
+        body.modo-escuro .card h3 {
+            color: #f0d580;
+        }
+
+        body.modo-escuro .card p,
+        body.modo-escuro .card h5 {
+            color: #bbb;
+        }
+
+        body.modo-escuro .detalhes-container {
+            background: #1e1e2e;
+            color: #e0e0e0;
+        }
+
+        body.modo-escuro .detalhes-container h1 {
+            color: #f0d580;
+        }
+
+        body.modo-escuro .comentario-item {
+            background: #2a2a3e;
+            color: #e0e0e0;
+        }
+
+        body.modo-escuro .comentario-item .conteudo-comentario p {
+            color: #ccc;
+        }
+
+        body.modo-escuro .form-comentario input,
+        body.modo-escuro .form-comentario textarea {
+            background: #2a2a3e;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+
+        body.modo-escuro .form-comentario input:focus,
+        body.modo-escuro .form-comentario textarea:focus {
+            border-color: #d4af37;
+        }
+
+        body.modo-escuro .user-area .user-info {
+            background: rgba(255,255,255,0.1);
+        }
+
+        body.modo-escuro .user-area .user-info .user-name {
+            color: #f0d580;
+        }
+
+        body.modo-escuro .btn-login {
+            background: #d4af37;
+            color: #1a1a2e;
+        }
+
+        body.modo-escuro .header {
+            background: linear-gradient(135deg, #2d2a1a 0%, #4a3d20 100%);
+        }
+
+        body.modo-escuro .header h1 {
+            color: #f0d580;
+        }
+
+        body.modo-escuro .header p {
+            color: #d4af37;
         }
     </style>
 </head>
 <body>
 
-    <!-- ========== BLOG PRINCIPAL ========== -->
+    <!-- ============================================================
+    NOTIFICAÇÃO
+    ============================================================ -->
+    <div id="notificacao" class="notificacao"></div>
+
+    <!-- ============================================================
+    BLOG PRINCIPAL
+    ============================================================ -->
     <div id="blog-principal">
         <div class="header">
             <h1>💎 Jóias & Gemas</h1>
             <p>Descobrindo a Beleza das Pedras Preciosas</p>
+
+            <!-- ÁREA DO USUÁRIO -->
+            <div class="user-area">
+                <button class="btn-tema" id="btnTema" title="Alternar tema">🌙</button>
+
+                <div id="userInfo" class="user-info">
+                    <img id="userAvatar" src="" alt="Avatar">
+                    <span id="userName" class="user-name"></span>
+                    <button class="btn-logout" id="btnLogout" title="Sair">🚪</button>
+                </div>
+
+                <a href="login.html" class="btn-login" id="btnLogin">👤 Entrar</a>
+            </div>
         </div>
 
         <div class="row">
@@ -436,7 +715,7 @@
                 <!-- POST: DIAMANTE -->
                 <div class="card post-link" data-gema="diamante">
                     <h2>✨ Diamante: A Pedra Mais Valiosa</h2>
-                    <h5>Publicado em 12 de Agosto, 2026</h5>
+                    <h5>Por: <strong>Equipe Jóias & Gemas</strong> · 12 de Agosto, 2026</h5>
                     <div class="fakeimg" style="height:200px; background: linear-gradient(135deg, #a0aec0 0%, #cbd5e0 100%); display: flex; align-items: center; justify-content: center; font-size: 80px;">💎</div>
                     <img src="diamante.png" alt="Diamante" style="width:100%; max-width:275px; display:block;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22275%22 height=%22200%22%3E%3Crect fill=%22%23a0aec0%22 width=%22275%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2224%22%3E💎 Diamante%3C/text%3E%3C/svg%3E'">
                     <p>Você sabia que os diamantes podem ser mais antigos que o próprio Sistema Solar? Alguns diamantes têm cerca de 3,8 bilhões de anos! Além disso, um diamante é tão duro que é o único material natural capaz de arranhar outro diamante.</p>
@@ -446,7 +725,7 @@
                 <!-- POST: RUBI -->
                 <div class="card post-link" data-gema="rubi">
                     <h2>🔴 Rubi: A Gema Vermelha</h2>
-                    <h5>Publicado em 5 de Agosto, 2026</h5>
+                    <h5>Por: <strong>Equipe Jóias & Gemas</strong> · 5 de Agosto, 2026</h5>
                     <div class="fakeimg" style="height:200px; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); display: flex; align-items: center; justify-content: center; font-size: 80px;">❤️</div>
                     <img src="rubi.png" alt="Rubi" style="width:100%; max-width:275px; display:block;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22275%22 height=%22200%22%3E%3Crect fill=%22%23dc2626%22 width=%22275%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2224%22%3E🔴 Rubi%3C/text%3E%3C/svg%3E'">
                     <p>O rubi é na verdade uma variedade vermelha do corundum, o mesmo mineral que forma a safira azul! A cor vermelha intensa vem da presença de cromo na sua estrutura. Rubis de qualidade superior são frequentemente mais caros que diamantes.</p>
@@ -502,18 +781,47 @@
         </div>
     </div>
 
-    <!-- ========== CONTAINER PARA PÁGINAS DE DETALHES ========== -->
+    <!-- ============================================================
+    CONTAINER PARA PÁGINAS DE DETALHES
+    ============================================================ -->
     <div id="pagina-detalhes" style="display:none;"></div>
 
-    <!-- ============================================================ -->
-    <!--  FIREBASE - CÓDIGO FORNECIDO PELO SITE                       -->
-    <!-- ============================================================ -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-        import { getDatabase, ref, onValue, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+    <!-- ============================================================
+    FIREBASE - SDK MODULAR
+    ============================================================ -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js",
+                "firebase/database": "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js"
+            }
+        }
+    </script>
 
-        // Your web app's Firebase configuration
+    <script type="module">
+        // ============================================================
+        //  IMPORTAÇÕES
+        // ============================================================
+        import { initializeApp } from "firebase/app";
+        import { 
+            getAuth, 
+            onAuthStateChanged,
+            signOut
+        } from "firebase/auth";
+        import { 
+            getDatabase, 
+            ref, 
+            onValue, 
+            push, 
+            set,
+            remove,
+            update
+        } from "firebase/database";
+
+        // ============================================================
+        //  CONFIGURAÇÃO DO FIREBASE
+        // ============================================================
         const firebaseConfig = {
             apiKey: "AIzaSyDLcXtrkD8lSMNkZCJ6jQkkekitvsszP_g",
             authDomain: "gemas-ec5b5.firebaseapp.com",
@@ -524,11 +832,17 @@
             measurementId: "G-PX542Z3S4N"
         };
 
-        // Initialize Firebase
+        // ============================================================
+        //  INICIALIZAÇÃO
+        // ============================================================
         const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
         const database = getDatabase(app);
 
-        console.log('🔥 Firebase inicializado com sucesso!');
+        // ============================================================
+        //  CONFIGURAÇÃO DO BLOG (para múltiplos temas)
+        // ============================================================
+        const BLOG_ATUAL = 'pedras_preciosas'; // ← MUDE PARA OUTRO BLOG AQUI
 
         // ============================================================
         //  DADOS DAS GEMAS
@@ -536,86 +850,206 @@
         const dadosGemases = {
             diamante: {
                 titulo: '✨ Diamante: A Pedra Mais Valiosa',
-                data: 'Publicado em 12 de Agosto, 2026',
+                data: '12 de Agosto, 2026',
+                autor: 'Equipe Jóias & Gemas',
                 conteudo: `
                     <p>Os diamantes são formações cristalinas de carbono puro que se originam nas profundezas da Terra, a mais de 150 km abaixo da superfície. Eles são levados à superfície por erupções vulcânicas antigas, através de tubos de kimberlito.</p>
                     <p>Além de serem a substância natural mais dura conhecida (10 na escala Mohs), os diamantes possuem uma condutividade térmica excepcional, sendo usados em aplicações industriais de alta precisão.</p>
                     <p>Curiosidade: o maior diamante já encontrado foi o Cullinan, com 3.106 quilates, descoberto na África do Sul em 1905. Ele foi lapidado em 105 pedras diferentes, algumas das quais fazem parte das joias da Coroa Britânica.</p>
+                    <p>Os diamantes também são conhecidos por sua "fogo" ou dispersão, que é a capacidade de separar a luz branca em cores do arco-íris, criando o brilho característico que tanto encanta.</p>
                 `,
-                imagem: 'diamante.png'
+                imagem: 'diamante.png',
+                categoria: 'Diamantes',
+                tags: ['diamante', 'carbono', 'mineral', 'joia']
             },
             rubi: {
                 titulo: '🔴 Rubi: A Gema Vermelha',
-                data: 'Publicado em 5 de Agosto, 2026',
+                data: '5 de Agosto, 2026',
+                autor: 'Equipe Jóias & Gemas',
                 conteudo: `
                     <p>O rubi é uma variedade do mineral corundum (óxido de alumínio) com coloração vermelha devido à presença de cromo. É uma das quatro pedras preciosas tradicionais, ao lado do diamante, da esmeralda e da safira.</p>
                     <p>Os rubis de melhor qualidade são extraídos principalmente em Mianmar (antiga Birmânia), Moçambique, Tailândia e Sri Lanka. O "Rubi Esperança de Burmese" é um dos exemplares mais famosos, pesando 32,08 quilates.</p>
                     <p>Uma característica fascinante dos rubis é a fluorescência vermelha sob luz ultravioleta, que ajuda a distinguir rubis naturais de sintéticos ou imitações.</p>
+                    <p>Rubis com inclusões de agulhas de rutilo podem exibir o fenômeno de asterismo, formando uma estrela de seis pontas quando lapidados em cabochão.</p>
                 `,
-                imagem: 'rubi.png'
+                imagem: 'rubi.png',
+                categoria: 'Rubis',
+                tags: ['rubi', 'corundum', 'vermelho', 'mineral']
             },
             safira: {
                 titulo: '💙 Safira Azul: A Gema da Nobreza',
-                data: 'Publicado em 20 de Julho, 2026',
+                data: '20 de Julho, 2026',
+                autor: 'Equipe Jóias & Gemas',
                 conteudo: `
                     <p>A safira é outra variedade do corundum, mas em todas as cores exceto o vermelho (que seria rubi). A safira azul é a mais conhecida, com sua cor proveniente de traços de ferro e titânio.</p>
-                    <p>As safiras mais valorizadas vêm da Caxemira (azul aveludado), Mianmar e Sri Lanka. A safira "Estrela da Índia", com 563 quilates, é uma das maiores safiras estrela do mundo.</p>
+                    <p>As safiras mais valorizadas vêm da Caxemira (azul aveludado), Mianmar e Sri Lanka. A safira "Estrela da Índia", com 563 quilates, é uma das maiores safiras estrela do mundo, exibindo um asterismo perfeito.</p>
+                    <p>Além do azul, safiras podem ser encontradas em amarelo, verde, rosa, laranja e até incolor. A variedade "Padparadscha" (laranja-rosada) é extremamente rara e valiosa.</p>
                     <p>Historicamente, a safira era usada como proteção contra inveja e venenos, e era a pedra preferida da realeza europeia.</p>
                 `,
-                imagem: 'safira.png'
+                imagem: 'safira.png',
+                categoria: 'Safiras',
+                tags: ['safira', 'corundum', 'azul', 'nobreza']
             },
             esmeralda: {
                 titulo: '💚 Esmeralda Colombiana: O Verde da Natureza',
-                data: 'Publicado em 15 de Julho, 2026',
+                data: '15 de Julho, 2026',
+                autor: 'Equipe Jóias & Gemas',
                 conteudo: `
                     <p>A esmeralda é uma variedade verde do mineral berilo, com sua cor proveniente de traços de cromo, vanádio ou ferro. As esmeraldas colombianas são consideradas as mais finas do mundo.</p>
-                    <p>As minas de Muzo, Chivor e Coscuez na Colômbia produzem esmeraldas de cor verde intensa e pureza excepcional.</p>
+                    <p>As minas de Muzo, Chivor e Coscuez na Colômbia produzem esmeraldas de cor verde intensa e pureza excepcional. A esmeralda "Gachalá" de 858 quilates é um dos exemplares mais impressionantes.</p>
+                    <p>Diferente de outras gemas, as esmeraldas quase sempre apresentam inclusões (chamadas de "jardim"), que são aceitas e até valorizadas como prova de autenticidade.</p>
                     <p>A esmeralda é a pedra do mês de maio e simboliza renascimento, amor e sabedoria.</p>
                 `,
-                imagem: 'esmeralda.png'
+                imagem: 'esmeralda.png',
+                categoria: 'Esmeraldas',
+                tags: ['esmeralda', 'berilo', 'verde', 'colombiana']
             },
             topazio: {
                 titulo: '💛 Topázio Imperial: A Gema Dourada',
-                data: 'Publicado em 28 de Junho, 2026',
+                data: '28 de Junho, 2026',
+                autor: 'Equipe Jóias & Gemas',
                 conteudo: `
                     <p>O topázio é um mineral de silicato de alumínio e flúor, disponível em diversas cores. O topázio imperial, de cor dourada a laranja-rosada, é a variedade mais valiosa e rara.</p>
-                    <p>As principais fontes de topázio imperial são as minas de Ouro Preto, em Minas Gerais, Brasil.</p>
+                    <p>As principais fontes de topázio imperial são as minas de Ouro Preto, em Minas Gerais, Brasil. A cor intensa é devida à presença de impurezas de cromo e ferro.</p>
+                    <p>O topázio é uma pedra dura (8 na escala Mohs), sendo adequada para joias do dia a dia. Além do imperial, existem topázios azuis (geralmente tratados termicamente) e incolores.</p>
                     <p>Na antiguidade, acreditava-se que o topázio tinha propriedades medicinais, incluindo a cura de insônia e problemas de visão.</p>
                 `,
-                imagem: 'topazio.png'
+                imagem: 'topazio.png',
+                categoria: 'Topázios',
+                tags: ['topázio', 'imperial', 'dourado', 'brasil']
             }
         };
 
         // ============================================================
-        //  SISTEMA DE COMENTÁRIOS COM FIREBASE (TEMPO REAL)
+        //  ESTADO DO USUÁRIO
         // ============================================================
+        let usuarioAtual = null;
+        let perfilUsuario = null;
         let listenerRef = null;
 
+        // ============================================================
+        //  FUNÇÕES DE NOTIFICAÇÃO
+        // ============================================================
+        function mostrarNotificacao(mensagem, tipo = 'info') {
+            const el = document.getElementById('notificacao');
+            el.textContent = mensagem;
+            el.className = `notificacao ${tipo}`;
+            setTimeout(() => el.classList.add('mostrar'), 10);
+            setTimeout(() => el.classList.remove('mostrar'), 4000);
+        }
+
+        // ============================================================
+        //  FUNÇÕES DE AUTENTICAÇÃO
+        // ============================================================
+        async function logout() {
+            try {
+                await signOut(auth);
+                mostrarNotificacao('👋 Até logo!', 'info');
+            } catch (error) {
+                console.error('Erro ao sair:', error);
+                mostrarNotificacao('❌ Erro ao sair', 'erro');
+            }
+        }
+
+        // ============================================================
+        //  ATUALIZAR INTERFACE DO USUÁRIO
+        // ============================================================
+        function atualizarInterfaceUsuario(user, perfil) {
+            const userInfo = document.getElementById('userInfo');
+            const btnLogin = document.getElementById('btnLogin');
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+
+            if (user && perfil) {
+                userInfo.style.display = 'flex';
+                btnLogin.style.display = 'none';
+                userAvatar.src = perfil.avatar || 'https://ui-avatars.com/api/?name=Usuário&background=d4af37&color=fff&size=128';
+                userName.textContent = perfil.nome || 'Usuário';
+            } else {
+                userInfo.style.display = 'none';
+                btnLogin.style.display = 'inline-block';
+            }
+        }
+
+        // ============================================================
+        //  MONITORAR ESTADO DE AUTENTICAÇÃO
+        // ============================================================
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                usuarioAtual = user;
+                try {
+                    // Busca perfil do usuário
+                    const snapshot = await import('firebase/database').then(({ get, ref: r }) => 
+                        get(r(database, `usuarios/${user.uid}`))
+                    );
+                    perfilUsuario = snapshot.val();
+                    atualizarInterfaceUsuario(user, perfilUsuario);
+                } catch (error) {
+                    console.error('Erro ao buscar perfil:', error);
+                    perfilUsuario = null;
+                    atualizarInterfaceUsuario(user, null);
+                }
+            } else {
+                usuarioAtual = null;
+                perfilUsuario = null;
+                atualizarInterfaceUsuario(null, null);
+            }
+        });
+
+        // ============================================================
+        //  BOTÃO DE LOGOUT
+        // ============================================================
+        document.getElementById('btnLogout').addEventListener('click', logout);
+
+        // ============================================================
+        //  BOTÃO DE TEMA (MODO ESCURO)
+        // ============================================================
+        const btnTema = document.getElementById('btnTema');
+        let temaEscuro = localStorage.getItem('tema') === 'escuro';
+
+        function aplicarTema() {
+            if (temaEscuro) {
+                document.body.classList.add('modo-escuro');
+                btnTema.textContent = '☀️';
+            } else {
+                document.body.classList.remove('modo-escuro');
+                btnTema.textContent = '🌙';
+            }
+            localStorage.setItem('tema', temaEscuro ? 'escuro' : 'claro');
+        }
+
+        btnTema.addEventListener('click', () => {
+            temaEscuro = !temaEscuro;
+            aplicarTema();
+        });
+
+        aplicarTema();
+
+        // ============================================================
+        //  SISTEMA DE COMENTÁRIOS COM FIREBASE
+        // ============================================================
+        function getCaminhoComentarios(gemaId) {
+            return `blogs/${BLOG_ATUAL}/comentarios/${gemaId}`;
+        }
+
         function carregarComentarios(gemaId) {
-            const comentariosRef = ref(database, `comentarios/${gemaId}`);
+            const comentariosRef = ref(database, getCaminhoComentarios(gemaId));
             
-            // Remove listener anterior se existir
             if (listenerRef) {
                 listenerRef();
                 listenerRef = null;
             }
             
-            // Mostra loading
             const container = document.getElementById(`lista-comentarios-${gemaId}`);
             if (container) {
                 container.innerHTML = '<div class="loading-spinner">⏳ Carregando comentários</div>';
             }
             
-            // Escuta mudanças em tempo real
             const unsubscribe = onValue(comentariosRef, (snapshot) => {
                 const container = document.getElementById(`lista-comentarios-${gemaId}`);
-                if (!container) {
-                    console.warn('Container não encontrado para:', gemaId);
-                    return;
-                }
+                if (!container) return;
                 
                 const comentarios = snapshot.val();
-                console.log(`📝 Comentários carregados para ${gemaId}:`, comentarios);
                 container.innerHTML = '';
                 
                 if (!comentarios) {
@@ -623,7 +1057,6 @@
                     return;
                 }
                 
-                // Converte objeto para array e ordena por data
                 const comentariosArray = Object.keys(comentarios).map(key => ({
                     id: key,
                     ...comentarios[key]
@@ -638,25 +1071,44 @@
                     const div = document.createElement('div');
                     div.className = 'comentario-item';
                     const dataFormatada = c.timestamp ? new Date(c.timestamp).toLocaleString('pt-BR') : 'Data desconhecida';
+                    
+                    const isAutor = usuarioAtual && c.uid === usuarioAtual.uid;
+                    
                     div.innerHTML = `
-                        <strong>${c.nome || 'Anônimo'}</strong> 
-                        <span class="data">${dataFormatada}</span>
-                        <p>${c.texto || ''}</p>
+                        <img src="${c.avatar || 'https://ui-avatars.com/api/?name=Usuário&background=d4af37&color=fff&size=128'}" alt="Avatar" class="avatar">
+                        <div class="conteudo-comentario">
+                            <strong>${c.nome || 'Anônimo'}</strong>
+                            <span class="data">${dataFormatada}</span>
+                            <p>${c.texto || ''}</p>
+                            ${isAutor ? `
+                                <div class="acoes-comentario">
+                                    <button class="btn-excluir" data-id="${c.id}" data-gema="${gemaId}">🗑️ Excluir</button>
+                                </div>
+                            ` : ''}
+                        </div>
                     `;
                     container.appendChild(div);
                 });
                 
-                console.log(`✅ ${comentariosArray.length} comentários exibidos para ${gemaId}`);
+                // Eventos para botões de excluir
+                container.querySelectorAll('.btn-excluir').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const id = btn.dataset.id;
+                        const gema = btn.dataset.gema;
+                        if (confirm('Tem certeza que deseja excluir este comentário?')) {
+                            await excluirComentario(gema, id);
+                        }
+                    });
+                });
             }, (error) => {
-                console.error('❌ Erro ao carregar comentários:', error);
+                console.error('Erro ao carregar comentários:', error);
                 const container = document.getElementById(`lista-comentarios-${gemaId}`);
                 if (container) {
                     container.innerHTML = `
                         <div class="erro-comentarios">
                             <strong>❌ Erro ao carregar comentários</strong>
                             <p>${error.message}</p>
-                            <small>💡 Verifique as <strong>Regras de Segurança</strong> do Realtime Database no Firebase Console.</small>
-                            <small>🔧 Configure as regras como: { "rules": { ".read": true, ".write": true } } para testes.</small>
+                            <small>Verifique as regras de segurança do Firebase</small>
                         </div>
                     `;
                 }
@@ -665,46 +1117,54 @@
             listenerRef = unsubscribe;
         }
 
-        async function salvarComentario(gemaId, nome, texto) {
+        async function salvarComentario(gemaId, texto) {
+            if (!usuarioAtual) {
+                mostrarNotificacao('🔒 Faça login para comentar!', 'erro');
+                return;
+            }
+            
+            if (!perfilUsuario) {
+                mostrarNotificacao('⚠️ Perfil não carregado. Tente novamente.', 'erro');
+                return;
+            }
+            
             try {
-                console.log(`📤 Salvando comentário para ${gemaId}:`, { nome, texto });
+                const comentariosRef = ref(database, getCaminhoComentarios(gemaId));
+                const novoRef = push(comentariosRef);
                 
-                const comentariosRef = ref(database, `comentarios/${gemaId}`);
-                const novoComentarioRef = push(comentariosRef);
-                
-                await set(novoComentarioRef, {
-                    nome: nome.trim(),
+                await set(novoRef, {
+                    uid: usuarioAtual.uid,
+                    nome: perfilUsuario.nome || 'Usuário',
+                    email: usuarioAtual.email,
+                    avatar: perfilUsuario.avatar || 'https://ui-avatars.com/api/?name=Usuário&background=d4af37&color=fff&size=128',
                     texto: texto.trim(),
                     timestamp: Date.now()
                 });
                 
-                console.log('✅ Comentário salvo com sucesso!');
+                document.getElementById(`texto-${gemaId}`).value = '';
+                mostrarNotificacao('✅ Comentário enviado!', 'sucesso');
                 
-                // Limpa os campos
-                const nomeInput = document.getElementById(`nome-${gemaId}`);
-                const textoInput = document.getElementById(`texto-${gemaId}`);
-                if (nomeInput) nomeInput.value = '';
-                if (textoInput) textoInput.value = '';
-                
-                // Feedback visual
-                const btn = document.querySelector(`.form-comentario button`);
-                if (btn) {
-                    const originalText = btn.textContent;
-                    btn.textContent = '✅ Enviado!';
-                    btn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
-                    setTimeout(() => {
-                        btn.textContent = originalText;
-                        btn.style.background = '';
-                    }, 2000);
-                }
             } catch (error) {
-                console.error('❌ Erro ao salvar comentário:', error);
-                alert(`❌ Erro ao salvar comentário: ${error.message}\n\n💡 Verifique as regras de segurança do Firebase.`);
+                console.error('Erro ao salvar comentário:', error);
+                mostrarNotificacao('❌ Erro ao salvar comentário: ' + error.message, 'erro');
+            }
+        }
+
+        async function excluirComentario(gemaId, comentarioId) {
+            if (!usuarioAtual) return;
+            
+            try {
+                const comentarioRef = ref(database, `${getCaminhoComentarios(gemaId)}/${comentarioId}`);
+                await remove(comentarioRef);
+                mostrarNotificacao('🗑️ Comentário excluído!', 'info');
+            } catch (error) {
+                console.error('Erro ao excluir comentário:', error);
+                mostrarNotificacao('❌ Erro ao excluir comentário', 'erro');
             }
         }
 
         // ============================================================
-        //  RENDERIZAÇÃO DA PÁGINA DE DETALHES
+        //  RENDERIZAR PÁGINA DE DETALHES
         // ============================================================
         function mostrarDetalhes(gemaId) {
             const gema = dadosGemases[gemaId];
@@ -719,16 +1179,26 @@
             blog.style.display = 'none';
             container.style.display = 'block';
 
-            // Remove listener antigo
             if (listenerRef) {
                 listenerRef();
                 listenerRef = null;
             }
 
+            // Tags em HTML
+            const tagsHtml = gema.tags ? gema.tags.map(t => 
+                `<span style="display:inline-block; background:#f0f0f0; padding:4px 12px; border-radius:20px; font-size:0.8em; margin-right:5px; color:#555;">#${t}</span>`
+            ).join('') : '';
+
+            const isLogado = usuarioAtual !== null;
+
             let html = `
                 <div class="detalhes-container">
                     <h1>${gema.titulo}</h1>
-                    <div class="meta">${gema.data}</div>
+                    <div class="meta">
+                        Por: <strong>${gema.autor || 'Equipe'}</strong> · ${gema.data}
+                        ${gema.categoria ? ` · 🏷️ <span style="background:#d4af37; padding:2px 12px; border-radius:20px; color:#1a1a2e; font-size:0.8em;">${gema.categoria}</span>` : ''}
+                    </div>
+                    <div style="margin-bottom:15px;">${tagsHtml}</div>
                     <img src="${gema.imagem}" alt="${gema.titulo}" class="gema-img" 
                          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Crect fill=%22%23d4af37%22 width=%22300%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2240%22%3E💎%3C/text%3E%3C/svg%3E'">
                     <div class="conteudo">
@@ -746,19 +1216,22 @@
 
                         <div class="form-comentario">
                             <h4>✍️ Deixe seu comentário</h4>
-                            <input type="text" id="nome-${gemaId}" placeholder="Seu nome..." required>
-                            <textarea id="texto-${gemaId}" placeholder="Escreva seu comentário..." required></textarea>
-                            <button onclick="window.adicionarComentario('${gemaId}')">📨 Enviar Comentário</button>
+                            ${!isLogado ? `
+                                <div class="login-aviso">
+                                    🔒 <a href="login.html">Faça login</a> para comentar
+                                </div>
+                            ` : ''}
+                            <textarea id="texto-${gemaId}" placeholder="Escreva seu comentário..." ${!isLogado ? 'disabled' : ''}></textarea>
+                            <button onclick="window.adicionarComentario('${gemaId}')" ${!isLogado ? 'disabled' : ''}>
+                                📨 Enviar Comentário
+                            </button>
                         </div>
                     </div>
                 </div>
             `;
 
             container.innerHTML = html;
-            
-            // Carrega comentários em tempo real
             carregarComentarios(gemaId);
-            
             window.scrollTo(0, 0);
         }
 
@@ -776,25 +1249,21 @@
             window.scrollTo(0, 0);
         };
         window.adicionarComentario = function(gemaId) {
-            const nomeInput = document.getElementById(`nome-${gemaId}`);
             const textoInput = document.getElementById(`texto-${gemaId}`);
-
-            const nome = nomeInput?.value?.trim() || '';
             const texto = textoInput?.value?.trim() || '';
 
-            if (!nome || !texto) {
-                alert('Por favor, preencha seu nome e o comentário.');
+            if (!texto) {
+                mostrarNotificacao('⚠️ Escreva algo para comentar.', 'erro');
                 return;
             }
 
-            salvarComentario(gemaId, nome, texto);
+            salvarComentario(gemaId, texto);
         };
 
         // ============================================================
-        //  CONFIGURA EVENTOS DE CLIQUE
+        //  EVENTOS DE CLIQUE
         // ============================================================
         document.addEventListener('DOMContentLoaded', function() {
-            // Clique nos cards principais
             document.querySelectorAll('.post-link[data-gema]').forEach(el => {
                 el.addEventListener('click', function(e) {
                     const gemaId = this.dataset.gema;
@@ -805,9 +1274,9 @@
             });
         });
 
-        console.log('✅ Blog conectado ao Firebase!');
-        console.log('📝 Comentários em tempo real ativados!');
-        console.log('💡 Se os comentários não carregarem, configure as regras do Realtime Database.');
+        console.log('🔥 Blog conectado ao Firebase!');
+        console.log(`📝 Blog atual: ${BLOG_ATUAL}`);
+        console.log('👤 Sistema de usuários ativo!');
     </script>
 
 </body>
