@@ -1,19 +1,39 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  font-family: Arial;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
-  background: #f1f1f1;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #333;
+  min-height: 100vh;
 }
 
 /* Header/Blog Title */
 .header {
-  padding: 30px;
+  padding: 50px 30px;
   font-size: 40px;
   text-align: center;
-  background: white;
+  background: linear-gradient(135deg, #d4af37 0%, #f0d580 100%);
+  box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  color: #1a1a2e;
+  font-size: 3em;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header p {
+  color: #2d3561;
+  font-size: 1.3em;
+  font-weight: 300;
 }
 
 /* Create two unequal columns that floats next to each other */
@@ -21,13 +41,13 @@ body {
 .leftcolumn {
   float: left;
   width: 75%;
+  padding-right: 20px;
 }
 
 /* Right column */
 .rightcolumn {
   float: left;
   width: 25%;
-  padding-left: 20px;
 }
 
 /* Fake image */
@@ -35,13 +55,93 @@ body {
   background-color: #aaa;
   width: 100%;
   padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Add a card effect for articles */
 .card {
   background-color: white;
-  padding: 20px;
+  padding: 25px;
   margin-top: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  border-left: 5px solid #d4af37;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+.card h2 {
+  color: #1a1a2e;
+  margin-bottom: 10px;
+  font-size: 1.8em;
+}
+
+.card h3 {
+  color: #1a1a2e;
+  margin-bottom: 15px;
+  font-size: 1.4em;
+}
+
+.card h5 {
+  color: #888;
+  font-weight: normal;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.card p {
+  color: #555;
+  line-height: 1.6;
+  font-size: 1.05em;
+}
+
+/* Card especial destaque */
+.card.highlight {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(240, 213, 128, 0.1) 100%);
+  border-left-color: #d4af37;
+  border-top: 3px solid #d4af37;
+}
+
+/* Subscribe input e button */
+.subscribe-input {
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0;
+  border: 2px solid #d4af37;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+.subscribe-input:focus {
+  outline: none;
+  border-color: #f0d580;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.subscribe-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #d4af37 0%, #f0d580 100%);
+  color: #1a1a2e;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.subscribe-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
 }
 
 /* Clear floats after the columns */
@@ -53,10 +153,24 @@ body {
 
 /* Footer */
 .footer {
-  padding: 20px;
+  padding: 40px 20px;
   text-align: center;
-  background: #ddd;
-  margin-top: 20px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+  margin-top: 40px;
+  border-radius: 12px;
+  color: #d4af37;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.footer h2 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.footer p {
+  font-size: 1.05em;
+  color: #a0a0a0;
 }
 
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
@@ -64,5 +178,17 @@ body {
   .leftcolumn, .rightcolumn {
     width: 100%;
     padding: 0;
+  }
+
+  .header h1 {
+    font-size: 2em;
+  }
+
+  .header p {
+    font-size: 1em;
+  }
+
+  .card {
+    margin-top: 15px;
   }
 }
